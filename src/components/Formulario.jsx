@@ -71,7 +71,7 @@ export default function ProjectForm() {
     setSubmitStatus(null);
   
     try {
-      const response = await fetch("http://localhost:3000/formulario", {
+      const response = await fetch("http://localhost:3000/api/form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -146,7 +146,7 @@ export default function ProjectForm() {
         <SwitchField label="Celular" enabled={form.dispositivos.celular} onChange={() => toggleDispositivo("celular")} />
         <SwitchField label="Tablet" enabled={form.dispositivos.tablet} onChange={() => toggleDispositivo("tablet")} />
         <SwitchField label="Computador" enabled={form.dispositivos.computador} onChange={() => toggleDispositivo("computador")} />
-        <input type="text" name="acessibilidade" placeholder="Necessidades de acessibilidade?" className="input" onChange={handleChange} />
+        <SwitchField label="Acessibilidade" enabled={form.acessibilidade} onChange={() => toggleSwitch("acessibilidade")} />
       </fieldset>
 
       {/* hospedagem e dominio */}
