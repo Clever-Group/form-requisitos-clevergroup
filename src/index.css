@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-white text-black dark:bg-background dark:text-text;
+}
+
+.input {
+  @apply w-full p-3 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800;
+}
+.textarea {
+  @apply w-full p-3 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 h-28;
+}
