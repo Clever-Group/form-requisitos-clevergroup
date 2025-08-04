@@ -43,6 +43,9 @@ export default function ProjectForm() {
     orcamento: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
   const toggleSwitch = (field) => {
     setForm((prev) => ({ ...prev, [field]: !prev[field] }));
   };
@@ -62,11 +65,42 @@ export default function ProjectForm() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+  
+    try {
+      const response = await fetch("http://localhost:3000/formulario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+  
+      if (response.ok) {
+        setSubmitStatus("success");
+        alert("Dados enviados com sucesso!");
+        setForm(initialFormState);
+      } else {
+        setSubmitStatus("error");
+        alert("Erro ao enviar os dados. Tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar:", error);
+      setSubmitStatus("error");
+      alert("Erro ao enviar os dados. Tente novamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };  
+
   return (
     <form className="max-w-3xl mx-auto p-6 space-y-8 text-gray-800 dark:text-white">
       <h2 className="text-2xl font-bold text-center">Formulário de Requisitos</h2>
 
-      {/* 🧾 Informações Gerais */}
+      {/* infos gerais */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🧾 Informações Gerais</legend>
         <input type="text" name="nome" placeholder="Nome da empresa/marca" className="input" onChange={handleChange} />
@@ -77,16 +111,16 @@ export default function ProjectForm() {
         <input type="text" name="redesSociais" placeholder="Redes sociais (opcional)" className="input" onChange={handleChange} />
       </fieldset>
 
-      {/* 🌐 Sobre o Projeto */}
+      {/* sobre o projeto */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🌐 Sobre o Projeto</legend>
         <textarea name="objetivo" placeholder="Qual o objetivo da landing page?" className="textarea" onChange={handleChange} />
         <textarea name="produtos" placeholder="Quais produtos ou serviços serão vendidos?" className="textarea" onChange={handleChange} />
         <input type="text" name="variacoes" placeholder="Quantos produtos estarão disponíveis?" className="input" onChange={handleChange} />
-        <input type="text" name="pagamentoExterno" placeholder="Plataforma de pagamento?" className="input" onChange={handleChange} />
+        <SwitchField label="Plataforma de pagamento ?" enabled={form.pagamentoExterno} onChange={() => toggleSwitch("pagamentoExterno")} />
       </fieldset>
 
-      {/* 🖌️ Design e Identidade Visual */}
+      {/* design e identidade visual */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🖌️ Design e Identidade Visual</legend>
         <SwitchField label="Já possui identidade visual?" enabled={form.identidadeVisual} onChange={() => toggleSwitch("identidadeVisual")} />
@@ -94,7 +128,7 @@ export default function ProjectForm() {
         <input type="text" name="estilo" placeholder="Preferência de estilo (moderno, clássico...)" className="input" onChange={handleChange} />
       </fieldset>
 
-      {/* 🧩 Funcionalidades */}
+      {/* funcionalidades */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🧩 Funcionalidades</legend>
         <SwitchField label="Sistema de carrinho" enabled={form.carrinho} onChange={() => toggleSwitch("carrinho")} />
@@ -106,7 +140,7 @@ export default function ProjectForm() {
         <SwitchField label="Integração com e-mail marketing?" enabled={form.emailMarketing} onChange={() => toggleSwitch("emailMarketing")} />
       </fieldset>
 
-      {/* 📱 Responsividade */}
+      {/* Responsividade */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">📱 Responsividade</legend>
         <SwitchField label="Celular" enabled={form.dispositivos.celular} onChange={() => toggleDispositivo("celular")} />
@@ -115,15 +149,15 @@ export default function ProjectForm() {
         <input type="text" name="acessibilidade" placeholder="Necessidades de acessibilidade?" className="input" onChange={handleChange} />
       </fieldset>
 
-      {/* 🧑‍💻 Hospedagem e Domínio */}
+      {/* hospedagem e dominio */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🧑‍💻 Hospedagem e Domínio</legend>
-        <input type="text" name="dominio" placeholder="Já possui domínio?" className="input" onChange={handleChange} />
-        <input type="text" name="hospedagem" placeholder="Já possui hospedagem?" className="input" onChange={handleChange} />
+        <SwitchField label="Já possui domínio?" enabled={form.dominio} onChange={() => toggleSwitch("dominio")} />
+        <SwitchField label="Já possui hospedagem?" enabled={form.hospedagem} onChange={() => toggleSwitch("hospedagem")} />
         <input type="text" name="tecnologia" placeholder="Tecnologia/CMS preferido?" className="input" onChange={handleChange} />
       </fieldset>
 
-      {/* 📦 Entrega e Suporte */}
+      {/* entrega e suporte */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">📦 Entrega e Suporte</legend>
         <SwitchField label="Manual de uso" enabled={form.manual} onChange={() => toggleSwitch("manual")} />
@@ -131,14 +165,14 @@ export default function ProjectForm() {
         <SwitchField label="Auto gerenciamento do conteúdo?" enabled={form.autoGerenciamento} onChange={() => toggleSwitch("autoGerenciamento")} />
       </fieldset>
 
-      {/* 🗓️ Prazos e Orçamento */}
+      {/* prazos e orçamento */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🗓️ Prazos e Orçamento</legend>
         <input type="text" name="prazo" placeholder="Prazo de entrega desejado" className="input" onChange={handleChange} />
         <input type="text" name="orcamento" placeholder="Orçamento estimado" className="input" onChange={handleChange} />
       </fieldset>
 
-      <button type="submit" className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+      <button type="submit" onClick={handleSubmit} className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
         Enviar Formulário
       </button>
     </form>
