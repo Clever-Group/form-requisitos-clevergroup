@@ -92,7 +92,7 @@ export default function ProjectForm() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch("http://localhost:3000/api/form", {
+      const response = await fetch("https://api-clevergroup-production.up.railway.app/api/form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
