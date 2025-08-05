@@ -7,7 +7,7 @@ export const validarCPF = (cpf) => {
     let soma = 0;
     for (let i = 0; i < 9; i++) {
         soma += parseInt(cpf.charAt(i)) * (10 - i);
-}
+    }
     let resto = (soma * 10) % 11;
     resto = resto === 10 ? 0 : resto;
     if (resto !== parseInt(cpf.charAt(9))) return false;
@@ -15,7 +15,7 @@ export const validarCPF = (cpf) => {
     soma = 0;
     for (let i = 0; i < 10; i++) {
         soma += parseInt(cpf.charAt(i)) * (11 - i);
-}
+    }
     resto = (soma * 10) % 11;
     resto = resto === 10 ? 0 : resto;
     if (resto !== parseInt(cpf.charAt(10))) return false;
@@ -29,14 +29,14 @@ export const validarCNPJ = (cnpj) => {
     if (cnpj.length !== 14) return false;
     if (/^(\d)\1{13}$/.test(cnpj)) return false;
 
-const validarDigito = (cnpj, peso) => {
+    const validarDigito = (cnpj, peso) => {
         let soma = 0;
         for (let i = 0; i < peso.length; i++) {
-        soma += parseInt(cnpj.charAt(i)) * peso[i];
+            soma += parseInt(cnpj.charAt(i)) * peso[i];
         }
         let resto = soma % 11;
         return resto < 2 ? 0 : 11 - resto;
-};
+    };
 
     const peso1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
     const peso2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
@@ -94,25 +94,25 @@ export const validarFormulario = (form) => {
 
     if (!validarObrigatorio(form.produtos)) erros.produtos = "Produtos são obrigatórios";
 
-    if (!validarObrigatorio(form.variacoes)) erros.variacoes = "Variações são obrigatórias";
+    // if (!validarObrigatorio(form.variacoes)) erros.variacoes = "Variações são obrigatórias";
 
-    if (!validarObrigatorio(form.referencias)) erros.referencias = "Referências são obrigatórias";
+    // if (!validarObrigatorio(form.referencias)) erros.referencias = "Referências são obrigatórias";
 
     if (!validarObrigatorio(form.estilo)) erros.estilo = "Estilo é obrigatório";
 
-    if (form.traducao && !validarObrigatorio(form.pluginTraducao)) erros.pluginTraducao = "Plugin de tradução é obrigatório";
+    // if (form.traducao && !validarObrigatorio(form.pluginTraducao)) erros.pluginTraducao = "Plugin de tradução é obrigatório";
 
-    if (!validarObrigatorio(form.idiomas)) erros.idiomas = "Idiomas são obrigatórios";
+    // if (!validarObrigatorio(form.idiomas)) erros.idiomas = "Idiomas são obrigatórios";
 
-    // if (!validarObrigatorio(form.acessibilidade)) erros.acessibilidade = "Informe acessibilidade";
+    // // if (!validarObrigatorio(form.acessibilidade)) erros.acessibilidade = "Informe acessibilidade";
 
-    if (!validarObrigatorio(form.tecnologia)) erros.tecnologia = "Informe tecnologia";
+    // if (!validarObrigatorio(form.tecnologia)) erros.tecnologia = "Informe tecnologia";
 
-    if (!validarObrigatorio(form.suporte)) erros.suporte = "Informe suporte";
+    // if (!validarObrigatorio(form.suporte)) erros.suporte = "Informe suporte";
 
-    if (!validarObrigatorio(form.prazo)) erros.prazo = "Informe prazo";
+    // if (!validarObrigatorio(form.prazo)) erros.prazo = "Informe prazo";
 
-    if (!validarObrigatorio(form.orcamento)) erros.orcamento = "Informe orçamento";
+    // if (!validarObrigatorio(form.orcamento)) erros.orcamento = "Informe orçamento";
 
     // if (!validarDispositivos(form.dispositivos)) erros.dispositivos = "Selecione ao menos um dispositivo";
 

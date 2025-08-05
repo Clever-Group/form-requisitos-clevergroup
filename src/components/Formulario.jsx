@@ -101,6 +101,7 @@ export default function ProjectForm() {
 
       if (response.ok) {
         setSubmitStatus("success");
+        setErros(false);
         toast.success("Formulário enviado com sucesso!");
         setForm(initialFormState);
       } else {
@@ -227,17 +228,17 @@ export default function ProjectForm() {
           onChange={() => toggleSwitch("pagamentoExterno")}
         />
 
-        <input
+        {/* <input
           type="text"
           name="variacoes"
           value={form.variacoes}
           placeholder="Quantos produtos estarão disponíveis?"
           className="input"
           onChange={handleChange}
-        />
-        {erros.variacoes && (
+        /> */}
+        {/* {erros.variacoes && (
           <p className="text-red-600 text-sm">{erros.variacoes}</p>
-        )}
+        )} */}
       </fieldset>
 
       {/* design e identidade visual */}
@@ -252,8 +253,8 @@ export default function ProjectForm() {
         />
         <textarea
           name="referencias"
-          value={form.referecias}
-          placeholder="Links ou prints de referência"
+          value={form.referencias}
+          placeholder="Links de referência"
           className="textarea"
           onChange={handleChange}
         />
@@ -281,7 +282,7 @@ export default function ProjectForm() {
           onChange={() => toggleSwitch("carrinho")}
         />
         <SwitchField
-          label="Redirecionamento para pagamento externo"
+          label="Redirecionamento para pagamento ou site externo"
           enabled={form.redirecionamentoPagamento}
           onChange={() => toggleSwitch("redirecionamentoPagamento")}
         />
@@ -315,15 +316,15 @@ export default function ProjectForm() {
         )}
 
         <SwitchField
-          label="Formulário de contato / leads"
+          label="Formulário de contato"
           enabled={form.formularioContato}
           onChange={() => toggleSwitch("formularioContato")}
         />
-        <SwitchField
+        {/* <SwitchField
           label="Integração com e-mail marketing?"
           enabled={form.emailMarketing}
           onChange={() => toggleSwitch("emailMarketing")}
-        />
+        /> */}
       </fieldset>
 
       {/* Responsividade */}
@@ -376,7 +377,7 @@ export default function ProjectForm() {
           <p className="text-red-600 text-sm">{erros.hospedagem}</p>
         )}
 
-        <input
+        {/* <input
           type="text"
           name="tecnologia"
           value={form.tecnologia}
@@ -386,7 +387,7 @@ export default function ProjectForm() {
         />
         {erros.tecnologia && (
           <p className="text-red-600 text-sm">{erros.tecnologia}</p>
-        )}
+        )} */}
       </fieldset>
 
       {/* entrega e suporte */}
@@ -417,8 +418,9 @@ export default function ProjectForm() {
         />
       </fieldset>
 
+
       {/* prazos e orçamento */}
-      <fieldset className="space-y-4 bg-surface p-6 rounded-xl">
+      {/* <fieldset className="space-y-4 bg-surface p-6 rounded-xl">
         <legend className="text-xl font-semibold">🗓️ Prazos e Orçamento</legend>
         <input
           type="text"
@@ -441,7 +443,8 @@ export default function ProjectForm() {
         {erros.orcamento && (
           <p className="text-red-600 text-sm">{erros.orcamento}</p>
         )}
-      </fieldset>
+      </fieldset> */}
+
       <fieldset className="space-y-4 bg-surface p-6 rounded-xl">
         <legend className="text-xl font-semibold">
           🧾 Conteúdo a Ser Fornecido (Opcional)
