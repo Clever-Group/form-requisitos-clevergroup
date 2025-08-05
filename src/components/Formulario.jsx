@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { validarFormulario } from './validation';
+import { toast } from 'react-toastify';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProjectForm() {
+
   const [erros, setErros] = useState({});
   const [form, setForm] = useState({
+
+  const initialFormState = {
     nome: "",
     cnpj: "",
     responsavel: "",
@@ -18,7 +22,7 @@ export default function ProjectForm() {
     objetivo: "",
     produtos: "",
     variacoes: "",
-    pagamentoExterno: "",
+    pagamentoExterno: false,
     identidadeVisual: false,
     referencias: "",
     estilo: "",
@@ -34,16 +38,23 @@ export default function ProjectForm() {
       tablet: false,
       computador: false,
     },
-    acessibilidade: "",
-    dominio: "",
-    hospedagem: "",
+    acessibilidade: false,
+    dominio: false,
+    hospedagem: false,
     tecnologia: "",
     manual: false,
     suporte: "",
     autoGerenciamento: false,
     prazo: "",
     orcamento: "",
-  });
+    imagens_produtos: "",
+    textos_descritivos: "",
+    links_conteudos: "",
+    materiais_apoio: "",
+    localHospedagem: "",
+  };
+  
+  const [form, setForm] = useState(initialFormState);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -92,32 +103,32 @@ export default function ProjectForm() {
   
       if (response.ok) {
         setSubmitStatus("success");
-        alert("Dados enviados com sucesso!");
+        toast.success("Formulário enviado com sucesso!");
         setForm(initialFormState);
       } else {
         setSubmitStatus("error");
-        alert("Erro ao enviar os dados. Tente novamente.");
+        toast.error("Erro ao enviar os dados.");
       }
     } catch (error) {
       console.error("Erro ao enviar:", error);
       setSubmitStatus("error");
-      alert("Erro ao enviar os dados. Tente novamente.");
+      toast.error("Erro de conexão. Tente novamente.");
     } finally {
       setIsSubmitting(false);
     }
   };  
 
   return (
-    <form className="max-w-3xl mx-auto p-6 space-y-8 text-gray-800 dark:text-white">
+    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-6 space-y-8 text-gray-800 dark:text-white">
       <h2 className="text-2xl font-bold text-center">Formulário de Requisitos</h2>
   
       {/* infos gerais */}
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🧾 Informações Gerais</legend>
-  
         <input
           type="text"
           name="nome"
+          value={form.nome}
           placeholder="Nome da empresa/marca"
           className="input"
           onChange={handleChange}
@@ -127,6 +138,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="cnpj"
+          value={form.cnpj}
           placeholder="CNPJ ou CPF"
           className="input"
           onChange={handleChange}
@@ -136,6 +148,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="responsavel"
+          value={form.responsavel}
           placeholder="Nome do responsável"
           className="input"
           onChange={handleChange}
@@ -145,6 +158,7 @@ export default function ProjectForm() {
         <input
           type="email"
           name="email"
+          value={form.email}
           placeholder="Email de contato"
           className="input"
           onChange={handleChange}
@@ -154,6 +168,7 @@ export default function ProjectForm() {
         <input
           type="tel"
           name="telefone"
+          value={form.telefone}
           placeholder="Telefone / WhatsApp"
           className="input"
           onChange={handleChange}
@@ -163,6 +178,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="redesSociais"
+          value={form.redesSociais}
           placeholder="Redes sociais (opcional)"
           className="input"
           onChange={handleChange}
@@ -174,6 +190,7 @@ export default function ProjectForm() {
         <legend className="text-xl font-semibold">🌐 Sobre o Projeto</legend>
         <textarea
           name="objetivo"
+          value={form.objetivo}
           placeholder="Qual o objetivo da landing page?"
           className="textarea"
           onChange={handleChange}
@@ -182,6 +199,7 @@ export default function ProjectForm() {
   
         <textarea
           name="produtos"
+          value={form.produtos}
           placeholder="Quais produtos ou serviços serão vendidos?"
           className="textarea"
           onChange={handleChange}
@@ -191,6 +209,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="variacoes"
+          value={form.variacoes}
           placeholder="Quantos produtos estarão disponíveis?"
           className="input"
           onChange={handleChange}
@@ -214,6 +233,7 @@ export default function ProjectForm() {
         />
         <textarea
           name="referencias"
+          value={form.referecias}
           placeholder="Links ou prints de referência"
           className="textarea"
           onChange={handleChange}
@@ -223,6 +243,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="estilo"
+          value={form.estilo}
           placeholder="Preferência de estilo (moderno, clássico...)"
           className="input"
           onChange={handleChange}
@@ -251,6 +272,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="idiomas"
+          value={form.idiomas}
           placeholder="Quais idiomas?"
           className="input"
           onChange={handleChange}
@@ -260,6 +282,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="pluginTraducao"
+          value={form.pluginTraducao}
           placeholder="Plugin de tradução preferido"
           className="input"
           onChange={handleChange}
@@ -325,6 +348,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="tecnologia"
+          value={form.tecnologia}
           placeholder="Tecnologia/CMS preferido?"
           className="input"
           onChange={handleChange}
@@ -344,7 +368,8 @@ export default function ProjectForm() {
         <input
           type="text"
           name="suporte"
-          placeholder="Suporte pós-entrega por quanto tempo?"
+          value={form.suporte}
+          placeholder="Tempo de suporte desejado (ex: 6 meses)"
           className="input"
           onChange={handleChange}
         />
@@ -363,6 +388,7 @@ export default function ProjectForm() {
         <input
           type="text"
           name="prazo"
+          value={form.prazo}
           placeholder="Prazo de entrega desejado"
           className="input"
           onChange={handleChange}
@@ -372,11 +398,20 @@ export default function ProjectForm() {
         <input
           type="text"
           name="orcamento"
+          value={form.orcamento}
           placeholder="Orçamento estimado"
           className="input"
           onChange={handleChange}
         />
         {erros.orcamento && <p className="text-red-600 text-sm">{erros.orcamento}</p>}
+
+
+      <fieldset className="space-y-4">
+        <legend className="text-xl font-semibold">🧾 Conteúdo a Ser Fornecido</legend>
+        <textarea name="imagens_produtos" value={form.imagens_produtos} placeholder="Links para imagens dos produtos" className="textarea" onChange={handleChange} />
+        <textarea name="textos_descritivos" value={form.textos_descritivos} placeholder="Textos descritivos que deseja usar" className="textarea" onChange={handleChange} />
+        <textarea name="links_conteudos" value={form.links_conteudos} placeholder="Links úteis (docs, sites, etc)" className="textarea" onChange={handleChange} />
+        <textarea name="materiais_apoio" value={form.materiais_apoio} placeholder="Materiais de apoio adicionais" className="textarea" onChange={handleChange} />
       </fieldset>
   
       <button
