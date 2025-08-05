@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ToastContainer } from 'react-toastify';
 import Formulario from "./components/Formulario";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           {isDark ? "Modo Claro" : "Modo Escuro"}
         </button>
       </div>
+      <ToastContainer />
       <Formulario />
     </div>
   );
