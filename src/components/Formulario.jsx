@@ -10,7 +10,6 @@ function classNames(...classes) {
 export default function ProjectForm() {
 
   const [erros, setErros] = useState({});
-  const [form, setForm] = useState({
 
   const initialFormState = {
     nome: "",
@@ -404,8 +403,7 @@ export default function ProjectForm() {
           onChange={handleChange}
         />
         {erros.orcamento && <p className="text-red-600 text-sm">{erros.orcamento}</p>}
-
-
+      </fieldset>
       <fieldset className="space-y-4">
         <legend className="text-xl font-semibold">🧾 Conteúdo a Ser Fornecido</legend>
         <textarea name="imagens_produtos" value={form.imagens_produtos} placeholder="Links para imagens dos produtos" className="textarea" onChange={handleChange} />
@@ -424,7 +422,6 @@ export default function ProjectForm() {
       </button>
     </form>
   );
-  
 }
 
 function SwitchField({ label, enabled, onChange }) {
