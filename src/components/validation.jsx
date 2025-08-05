@@ -1,3 +1,6 @@
+
+
+
 export const validarCPF = (cpf) => {
     if (!cpf) return false;
     cpf = cpf.replace(/[^\d]+/g, "");

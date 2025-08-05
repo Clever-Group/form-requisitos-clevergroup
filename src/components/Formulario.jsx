@@ -3,6 +3,7 @@ import { Switch } from "@headlessui/react";
 import { validarFormulario } from "./validation";
 import { toast } from "react-toastify";
 import $logo from "../img/logo.png";
+import InputMask from "react-input-mask";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -175,7 +176,9 @@ export default function ProjectForm() {
         />
         {erros.email && <p className="text-red-600 text-sm">{erros.email}</p>}
 
-        <input
+        <InputMask
+          mask="(99) 99999-9999"
+          maskChar=""
           type="tel"
           name="telefone"
           value={form.telefone}
@@ -183,6 +186,7 @@ export default function ProjectForm() {
           className="input"
           onChange={handleChange}
         />
+
         {erros.telefone && (
           <p className="text-red-600 text-sm">{erros.telefone}</p>
         )}
