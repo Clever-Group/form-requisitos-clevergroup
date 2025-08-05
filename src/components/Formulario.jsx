@@ -16,7 +16,7 @@ export default function ProjectForm() {
     objetivo: "",
     produtos: "",
     variacoes: "",
-    pagamentoExterno: "",
+    pagamentoExterno: false,
     identidadeVisual: false,
     referencias: "",
     estilo: "",
@@ -32,16 +32,25 @@ export default function ProjectForm() {
       tablet: false,
       computador: false,
     },
-    acessibilidade: "",
-    dominio: "",
-    hospedagem: "",
+    acessibilidade: false,
+    dominio: false,
+    hospedagem: false,
     tecnologia: "",
     manual: false,
     suporte: "",
     autoGerenciamento: false,
     prazo: "",
     orcamento: "",
+  
+    // NOVOS CAMPOS AQUI ⬇
+    imagens_produtos: "",
+    textos_descritivos: "",
+    links_conteudos: "",
+    materiais_apoio: "",
+    localHospedagem: "",
+    tempoSuporte: "",
   });
+  
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -163,6 +172,8 @@ export default function ProjectForm() {
         <SwitchField label="Manual de uso" enabled={form.manual} onChange={() => toggleSwitch("manual")} />
         <input type="text" name="suporte" placeholder="Suporte pós-entrega por quanto tempo?" className="input" onChange={handleChange} />
         <SwitchField label="Auto gerenciamento do conteúdo?" enabled={form.autoGerenciamento} onChange={() => toggleSwitch("autoGerenciamento")} />
+        <input type="text" name="localHospedagem" placeholder="Onde está hospedado (se tiver)?" className="input" onChange={handleChange} />
+        <input type="text" name="tempoSuporte" placeholder="Tempo de suporte desejado (ex: 6 meses)" className="input" onChange={handleChange} />
       </fieldset>
 
       {/* prazos e orçamento */}
@@ -170,6 +181,14 @@ export default function ProjectForm() {
         <legend className="text-xl font-semibold">🗓️ Prazos e Orçamento</legend>
         <input type="text" name="prazo" placeholder="Prazo de entrega desejado" className="input" onChange={handleChange} />
         <input type="text" name="orcamento" placeholder="Orçamento estimado" className="input" onChange={handleChange} />
+      </fieldset>
+
+      <fieldset className="space-y-4">
+        <legend className="text-xl font-semibold">🧾 Conteúdo a Ser Fornecido</legend>
+        <textarea name="imagens_produtos" placeholder="Links para imagens dos produtos" className="textarea" onChange={handleChange} />
+        <textarea name="textos_descritivos" placeholder="Textos descritivos que deseja usar" className="textarea" onChange={handleChange} />
+        <textarea name="links_conteudos" placeholder="Links úteis (docs, sites, etc)" className="textarea" onChange={handleChange} />
+        <textarea name="materiais_apoio" placeholder="Materiais de apoio adicionais" className="textarea" onChange={handleChange} />
       </fieldset>
 
       <button type="submit" onClick={handleSubmit} className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
