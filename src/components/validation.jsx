@@ -104,11 +104,7 @@ export const validarFormulario = (form) => {
 
     if (!validarObrigatorio(form.idiomas)) erros.idiomas = "Idiomas são obrigatórios";
 
-    if (!validarObrigatorio(form.acessibilidade)) erros.acessibilidade = "Informe acessibilidade";
-
-    if (!validarObrigatorio(form.dominio)) erros.dominio = "Informe domínio";
-
-    if (!validarObrigatorio(form.hospedagem)) erros.hospedagem = "Informe hospedagem";
+    // if (!validarObrigatorio(form.acessibilidade)) erros.acessibilidade = "Informe acessibilidade";
 
     if (!validarObrigatorio(form.tecnologia)) erros.tecnologia = "Informe tecnologia";
 
@@ -118,7 +114,7 @@ export const validarFormulario = (form) => {
 
     if (!validarObrigatorio(form.orcamento)) erros.orcamento = "Informe orçamento";
 
-    if (!validarDispositivos(form.dispositivos)) erros.dispositivos = "Selecione ao menos um dispositivo";
+    // if (!validarDispositivos(form.dispositivos)) erros.dispositivos = "Selecione ao menos um dispositivo";
 
     return erros;
 };
